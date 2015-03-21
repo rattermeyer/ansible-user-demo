@@ -1,0 +1,13 @@
+# vim:ts=2:sw=2:expandtab
+---
+# vars file for users
+test: abc
+users:
+  - name: "internal_user"
+    password: "xyz" 
+    authorized:
+      - internal_user
+  - name: "ops"
+    password: "xyz" 
+    authorized:
+      - ops

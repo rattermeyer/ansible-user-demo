@@ -1,0 +1,7 @@
+# vim: ts=2:sw=2:expandtab
+- hosts: all 
+  roles:
+    - users
+  vars_files:
+    - default_vars/default_users.yml
+

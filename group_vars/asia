@@ -1,0 +1,6 @@
+# vim:ts=2:sw=2:expandtab
+---
+# vars file for common
+users:
+  - default_users
+  - { name: "asia_agency", password: "xyz" }

@@ -1,0 +1,4 @@
+# vim: expandtab:ts=2:sw=2
+- hosts: asia
+  roles:
+    - role: users

@@ -1,0 +1,9 @@
+# vim: expandtab:ts=2:sw=2
+---
+# tasks file for common
+- name: create users
+  user: name={{ item.name }} password={{ item.password }} shell=/bin/bash state=present
+  with_flattened: users
+- name: create .ssh directory
+  authorized_key: user={{ item.name }} key="{{lookup('file', item.name +'.pub')}}"
+  with_flattened: users
