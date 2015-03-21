@@ -54,4 +54,29 @@ They are defined in the variable vile `default_users.yml` included in the site.y
     - { name: "ops", password: "xyz" }
 
 ## The user role
+This role creates the configured users. The main part `tasks/main.yml` is quite short
+
+  - name: create users
+    user: name={{ item.name }} password={{ item.password }} shell=/bin/bash state=present
+    with_flattened: users
+  - name: create .ssh directory
+    authorized_key: user={{ item.name }} key="{{lookup('file', item.name +'.pub')}}"
+    with_flattened: users
+
+It handles two tasks
+
+* Creation of new users
+* setting up authorized_key for ssh login
+
+The two tasks iterate over the `users` variable. Because we have lists in list (default_users in users), we use `with_flattened`.
+One convention is used: The ssh public key is named after the user's name and stored inside the `files` directory of this role.
+
+# Running the Example
+Change to the top-level directory containing `site.yml` and call `ansible-playbook -s -i development site.yml`
+The parameter `-s` is used to execute the commands with sudo.
+
+# Check that everything worked
+Run the ad-hoc command `ansible -i development -a `ls /home/` and see that each managed node contains the expected user directories.
+
+
 
